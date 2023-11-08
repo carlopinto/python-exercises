@@ -3,7 +3,7 @@ import unittest
 # Remove 'from TimeOfDay' from line below if you want to run this file
 # I keep it, so I can run all the tests from VSCode Testing window
 
-from TimeOfDay import time_of_day
+import time_of_day
 
 class TestTimeOfDay(unittest.TestCase):
 
