@@ -104,12 +104,12 @@ class TestVectorsMethods(unittest.TestCase):
 
     def test_get_words_in_book(self):
         """"""
-        book_words = vectors_methods.get_words_in_book("Vectors/alice_in_wonderland.txt")
+        book_words = vectors_methods.get_words_in_book("CompoundDataTypes/alice_in_wonderland.txt")
         self.assertEqual(len(book_words), 27336)
 
     def test_load_words_from_file(self):
         """"""
-        book_words = vectors_methods.load_words_from_file("Vectors/alice_in_wonderland.txt")
+        book_words = vectors_methods.load_words_from_file("CompoundDataTypes/alice_in_wonderland.txt")
         self.assertEqual(len(book_words), 26443)
         
     def test_search_binary(self):
@@ -121,7 +121,7 @@ class TestVectorsMethods(unittest.TestCase):
 
     def test_remove_adjacent_dups(self):
         """"""
-        all_words = vectors_methods.get_words_in_book("Vectors/alice_in_wonderland.txt")
+        all_words = vectors_methods.get_words_in_book("CompoundDataTypes/alice_in_wonderland.txt")
         all_words.sort()
         book_words = vectors_methods.remove_adjacent_dups(all_words)
         # All words
@@ -169,6 +169,19 @@ class TestVectorsMethods(unittest.TestCase):
         xs = [1,3,5,7,9,11,13,15,17,19,20,24]
         ys = [3,4,8,12,16,20,24]
         self.assertEqual(vectors_methods.merge_v5(xs, ys), [1, 5, 7, 9, 11, 13, 15, 17, 19])
+
+    def test_load_sort_write_words_to_file(self):
+        """ 
+            Creates a text file named alice_words.txt containing an alphabetical listing of all the words, 
+            and the number of times each occurs, in the text version of Alice’s Adventures in Wonderland.
+        """
+        words = vectors_methods.get_words_in_book("CompoundDataTypes/alice_in_wonderland.txt")
+        words_dict, sorted_words = vectors_methods.sort_list_of_letters(words)
+        vectors_methods.write_words_to_file(sorted_words, "CompoundDataTypes/alice_words.txt")
+
+        print("The word 'Alice' occurs {0} times in the book.".format(words_dict["alice"]))
+        longest_word = vectors_methods.get_longest_word(words_dict.keys())
+        print("The longest word in the book is '{0}' and it has {1} characters".format(longest_word, len(longest_word)))
 
 class TestRecursiveMethods(unittest.TestCase):
 

@@ -300,3 +300,34 @@ def merge_v5(xs, ys):
             xi += 1
         else:
             yi += 1
+
+def sort_list_of_letters(words_list):
+    """ 
+        Returns a list of words in alphabetical order which occur in the 
+        given list together with the number of times each word occurs
+    """
+    words = {}
+    for word in words_list:
+        if word != " ":
+            words[word] = words.get(word, 0) + 1
+
+    # use a list to sort in alphabetical order
+    word_items = list(words.items())
+    word_items.sort()
+
+    return words, word_items
+
+def write_words_to_file(words, filename):
+    """ Write words to file """
+    f = open(filename, "w")
+    for (word,n) in words:
+        f.write(word + " " + str(n) + " ")
+    f.close()
+
+def get_longest_word(words):
+    longest = ""
+    for word in words:
+        if len(word) > len(longest):
+            longest = word
+
+    return longest
