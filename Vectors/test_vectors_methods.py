@@ -1,6 +1,6 @@
 import unittest
 
-import vectors_methods
+import vectors_methods, recursive_methods
 
 class TestVectorsMethods(unittest.TestCase):
 
@@ -169,6 +169,49 @@ class TestVectorsMethods(unittest.TestCase):
         xs = [1,3,5,7,9,11,13,15,17,19,20,24]
         ys = [3,4,8,12,16,20,24]
         self.assertEqual(vectors_methods.merge_v5(xs, ys), [1, 5, 7, 9, 11, 13, 15, 17, 19])
+
+class TestRecursiveMethods(unittest.TestCase):
+
+    def test_recursive_sum(self):
+        """"""
+        self.assertEqual(recursive_methods.recursive_sum([1, 2, [11, 13], 8]), 35)
+        self.assertEqual(recursive_methods.recursive_sum([]), 0)
+        self.assertEqual(recursive_methods.recursive_sum(["test"]), 0)
+
+    def test_recursive_max(self):
+        """"""
+        self.assertEqual(recursive_methods.recursive_max([1, 2, [11, 13], 8]), 13)
+        self.assertEqual(recursive_methods.recursive_max([]), None)
+        self.assertEqual(recursive_methods.recursive_max([1, 2, []]), 2)
+        self.assertEqual(recursive_methods.recursive_max(["test"]), "test")
+        self.assertEqual(recursive_methods.recursive_max([""]), "")
+
+    def test_recursive_min(self):
+        """"""
+        self.assertEqual(recursive_methods.recursive_min([1, 2, [11, 13], 8]), 1)
+        self.assertEqual(recursive_methods.recursive_min([[[-13, 7], 90], 2, [1, 100], 8, 6]), -13)
+        self.assertEqual(recursive_methods.recursive_min([]), None)
+        self.assertEqual(recursive_methods.recursive_min([1, 2, []]), 1)
+        self.assertEqual(recursive_methods.recursive_min(["test"]), "test")
+        self.assertEqual(recursive_methods.recursive_min([""]), "")
+
+    def test_count(self):
+        """"""
+        self.assertEqual(recursive_methods.count(2, []), 0)
+        self.assertEqual(recursive_methods.count(2, [2, 9, [2, 1, 13, 2], 8, [2, 6]]), 4)
+        self.assertEqual(recursive_methods.count(7, [[9, [7, 1, 13, 2], 8], [7, 6]]), 2)
+        self.assertEqual(recursive_methods.count(15, [[9, [7, 1, 13, 2], 8], [2, 6]]), 0)
+        self.assertEqual(recursive_methods.count(5, [[5, [5, [1, 5], 5], 5], [5, 6]]), 6)
+        self.assertEqual(recursive_methods.count("a", [["this",["a",["thing","a"],"a"],"is"], ["a","easy"]]), 4)
+
+    def test_flatten(self):
+        """"""
+        self.assertEqual(recursive_methods.flatten([2,9,[2,1,13,2],8,[2,6]]), [2,9,2,1,13,2,8,2,6])
+        self.assertEqual(recursive_methods.flatten([[9,[7,1,13,2],8],[7,6]]), [9,7,1,13,2,8,7,6])
+        self.assertEqual(recursive_methods.flatten([[9,[7,1,13,2],8],[2,6]]), [9,7,1,13,2,8,2,6])
+        self.assertEqual(recursive_methods.flatten([["this",["a",["thing"],"a"],"is"],["a","easy"]]),
+                                                       ["this","a","thing","a","is","a","easy"])
+        self.assertEqual(recursive_methods.flatten([]), [])
 
 
 if __name__ == '__main__':
