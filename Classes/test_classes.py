@@ -2,6 +2,7 @@ import unittest
 
 import sms
 from rectangle import Point, Rectangle
+from cards import *
 
 class TestClasses(unittest.TestCase):
 
@@ -144,6 +145,81 @@ class TestClasses(unittest.TestCase):
         r2 = Rectangle(Point(2, 2), 3, 3)
 
         self.assertTrue(r1.rectangles_overlap(r2))
+
+class TestCards(unittest.TestCase):
+
+    def test_cards_value_suit(self):
+        """"""
+        card1 = Card(1, 1)
+        card2 = Card(2, 13)
+        self.assertTrue(card1 < card2)
+
+    def test_same_card(self):
+        """"""
+        card1 = Card(1, 1)
+        card2 = Card(1, 1)
+        self.assertTrue(card1 == card2)
+
+    def test_cards_value_rank(self):
+        """"""
+        card1 = Card(1, 3)
+        card2 = Card(1, 5)
+        self.assertTrue(card1 < card2)
+        card2.rank = 11
+        self.assertTrue(card1 < card2)
+
+    def test_cards_value_rank_ace(self):
+        """ Aces are ranked higher than Kings """
+        card1 = Card(1, 1)
+        card2 = Card(1, 5)
+        self.assertTrue(card1 > card2)
+        card2.rank = 13
+        self.assertTrue(card1 > card2)
+
+        card1.rank = 12
+        card2.rank = 1
+        self.assertTrue(card1 < card2)
+
+    def test_card_from_str(self):
+        """"""
+        card = Card(1, 1)
+        self.assertTrue(card.suit == 1)
+        self.assertTrue(card.rank == 1)
+
+        card = card.from_str("Queen of Hearts")
+        self.assertTrue(card.suit == 2)
+        self.assertTrue(card.rank == 12)
+
+    def test_deck_hand(self):
+        """"""
+        deck = Deck()
+        deck.shuffle()
+        hand = Hand("player")
+        deck.deal([hand], 5)
+        self.assertTrue(len(hand.cards) == 5)
+
+    def test_deck_remove(self):
+        """"""
+        deck = Deck()
+        deck.shuffle()
+        tot_num_cards = len(deck.cards)
+        if deck.remove(Card(1, 2)):
+            self.assertTrue(len(deck.cards) == tot_num_cards - 1)
+            
+        # That card has been removed already
+        self.assertFalse(deck.remove(Card(1, 2)))
+        # That card does not exist in the deck
+        self.assertFalse(deck.remove(Card(5, 22)))
+
+    def test_old_maid_remove(self):
+        """"""
+        game = CardGame()
+        hand = OldMaidHand("carlo")
+        game.deck.deal([hand], 13)
+        count = len(hand.cards)
+
+        hand.remove_matches()
+        self.assertTrue(count >= len(hand.cards))
 
 if __name__ == '__main__':
     unittest.main()
