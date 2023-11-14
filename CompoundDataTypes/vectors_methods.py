@@ -121,6 +121,21 @@ def search_binary(xs, target):
             lb = mid_index + 1 # Use upper half of ROI next time
         else:
             ub = mid_index # Use lower half of ROI next time
+            
+def binary_search_rec(a_list, first, last, an_item):
+   if len(a_list) == 0:
+       return False
+   else:
+       mid_point = (first + last) // 2
+       if a_list[mid_point] == an_item:
+           return True
+       else:
+           if an_item < a_list[mid_point]:
+               last = mid_point - 1
+               return binary_search_rec(a_list, first, last, an_item)
+           else:
+               first = mid_point + 1
+               return binary_search_rec(a_list, first, last, an_item)
 
 def remove_adjacent_dups(xs):
     """ Return a new list in which all adjacent

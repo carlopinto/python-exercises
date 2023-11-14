@@ -118,6 +118,12 @@ class TestVectorsMethods(unittest.TestCase):
         xs = range(sz)
         self.assertEqual(vectors_methods.search_linear(xs, 9999999), 9999999)
         self.assertEqual(vectors_methods.search_linear(xs, 99999999), -1)
+        
+    def test_binary_search_recursive(self):
+        """"""
+        sz = 100
+        xs = range(sz)
+        self.assertEqual(vectors_methods.binary_search_rec(xs, 0, len(xs) - 1, 99), True)
 
     def test_remove_adjacent_dups(self):
         """"""
