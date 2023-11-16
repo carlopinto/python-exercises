@@ -7,20 +7,19 @@ class CardSprite:
         self.img = img
         self.init_posn = target_posn
         self.posn = target_posn
-        self.curr_patch_num = curr_patch_num
-        self.card_width = 34.61
-        self.card_height = 53
+        self.card_width = 70
+        self.card_height = 103
+        self.curr_patch_num = (curr_patch_num[0] * self.card_height, curr_patch_num[1] * self.card_width)
 
     def update(self):
         return
     
     def draw(self, target_surface):
-        """each card has width = 34.61 and height = 53"""
         patch_rect = (self.curr_patch_num[1], self.curr_patch_num[0], self.card_width, self.card_height)
         target_surface.blit(self.img, self.posn, patch_rect)
 
     def handle_click(self, index):
-        self.posn = (50 * index + 50, self.init_posn[1] - 200)
+        self.posn = (self.card_width * index + self.card_width, self.init_posn[1] - 200)
 
     def reset_pos(self):
         self.posn = self.init_posn
@@ -47,7 +46,7 @@ def draw_playing_cards():
     # Create a sprite object for each card, and populate our list.
     for row in range(0, 4):
         for col in range(0, 13):
-            a_card = CardSprite(playing_cards, (0, surface_sz - 55), (row*53, col*34.61))
+            a_card = CardSprite(playing_cards, (0, surface_sz - 105), (row, col))
             all_cards.append(a_card)
 
     random.shuffle(all_cards)
@@ -82,7 +81,7 @@ def draw_playing_cards():
             card.update()
 
         # Draw a fresh background (a green poker cloth)
-        surface.fill((0,255, 0))
+        surface.fill((85, 170, 85))
 
         # Ask first 5 sprites to draw itself.
         # for i in range(0, 5):
