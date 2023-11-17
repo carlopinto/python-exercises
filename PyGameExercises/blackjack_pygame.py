@@ -5,6 +5,7 @@ Blackjack
 
 import pygame
 import time
+import os
 
 class Card:
     suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs']
@@ -110,10 +111,10 @@ class BlackjackGame():
         
         pygame.init()
         self.surface_sz = 800 # Proposed physical surface size. \
-        pygame.Surface
-        self.playing_cards = pygame.image.load("PyGameExercises/carddeck.png")
-        self.card_back_red = pygame.image.load("PyGameExercises/playing-card-back-red.jpg")
-        self.card_back_blue = pygame.image.load("PyGameExercises/playing-card-back-blue.jpg")
+        file_directory = os.path.dirname(os.path.realpath(__file__))
+        self.playing_cards = pygame.image.load(file_directory + "/carddeck.png")
+        self.card_back_red = pygame.image.load(file_directory + "/playing-card-back-red.jpg")
+        self.card_back_blue = pygame.image.load(file_directory + "/playing-card-back-blue.jpg")
             
         self.deck = Deck(self.playing_cards)
         self.deck.shuffle()
